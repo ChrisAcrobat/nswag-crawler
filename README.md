@@ -4,4 +4,4 @@ Periodically and recursively runs through the directory and executes `nswag run`
 
 First argument input is sleep duration.
 
-If the `.exclude` file is created automatically if it does not exist.
+The `.exclude` file is created automatically if it does not exist.
