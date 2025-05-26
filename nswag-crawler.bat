@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 
 set defaultSleep=60
 
-set tempLog=error.!date:~0,4!!date:~5,2!!date:~8,2!!time:~0,2!!time:~3,2!!time:~6,2!log
+set tempLog=error.%RANDOM%.temp.log
 set root=%~dp0
 set excludeFile=%~n0%~x0.exclude
 set sleep=%1
