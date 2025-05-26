@@ -3,7 +3,6 @@ setlocal EnableDelayedExpansion
 
 set defaultSleep=60
 
-set tempLog=error.%RANDOM%.temp.log
 set root=%~dp0
 set excludeFile=%~n0%~x0.exclude
 set sleep=%1
@@ -25,12 +24,13 @@ FOR /R "%root%" %%F in (*nswag*) do (
 	>nul findstr /c:"!file!" !excludeFile!
 	if !errorlevel! == 1 (
 		CD /D "%%~pF"
-		CALL nswag run "%%~nF%%~xF" > !tempLog!
-		set exception=false
-		for /f %%i in ('FINDSTR Exception !tempLog!') do (
-			set exception=true
+		for /f "delims=" %%A in ('CALL nswag run "%%~nF%%~xF"') do (
+			set row=%%A
+			set check=!row:Exception=!
+			if not !row!==!check! (
+				set exception=true
+			)
 		)
-		del !tempLog!
 		if !exception! == true (
 			ECHO Could not be called: !file!
 		)
